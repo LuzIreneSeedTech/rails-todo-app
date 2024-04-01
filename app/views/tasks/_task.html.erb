@@ -15,6 +15,14 @@
     <strong class="block font-medium mb-1">Project:</strong>
     <%= task.project.title %>
   </p>
+  <div class="my-5">
+    <strong class="block font-medium mb-1">Category:</strong>
+    <% task.categories.each do |category| %>
+      <p>
+        <%= category.name %>
+      </p>
+    <% end %>
+  </div>
   <% if action_name != "show" %>
     <%= link_to "Show this task", task, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this task", edit_task_path(task), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
