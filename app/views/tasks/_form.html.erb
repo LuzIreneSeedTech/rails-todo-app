@@ -26,8 +26,13 @@
   </div>
   <%# isCompleted %>
   <div class="my-5">
-    <%= form.label :isCompleted, "Task Due Date" %>
+    <%= form.label :isCompleted, "Completed" %>
     <%= form.check_box :isCompleted, class: "block mt-2 h-5 w-5" %>
+  </div>
+  <%# project selection %>
+  <div class="my-5">
+    <%= form.label :project_id, "Project" %>
+    <%= form.collection_select :project_id, Project.order(:title), :id, :title, id: "project", class: "block mt-2 h-5 w-5" %>
   </div>
   <%# submit %>
   <div class="inline">
