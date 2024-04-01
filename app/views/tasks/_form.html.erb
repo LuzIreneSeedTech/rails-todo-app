@@ -34,6 +34,16 @@
     <%= form.label :project_id, "Project" %>
     <%= form.collection_select :project_id, Project.order(:title), :id, :title, id: "project", class: "block mt-2 h-5 w-5" %>
   </div>
+  <%# category selection %>
+  <div class="my-5">
+    <%= form.label :category_ids, "Categories" %><br>
+    <% Category.order(:name).each do |category| %>
+      <label>
+        <%= check_box_tag 'task[category_ids][]', category.id, @task.categories.include?(category) %>
+        <%= category.name %>
+      </label><br>
+    <% end %>
+  </div>
   <%# submit %>
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
