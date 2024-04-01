@@ -3,17 +3,26 @@
     <strong class="block font-medium mb-1">Title:</strong>
     <%= project.title %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Description:</strong>
     <%= project.description %>
   </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Task:</strong>
-    <%= project.task_id %>
-  </p>
-
+  <% if action_name == "show" %>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Tasks:</strong>
+      <% if @tasks.present? %>
+        <ul>
+          <% @tasks.each do |task| %>
+            <li>
+              <%= task.title %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        No task found for this project
+      <% end %>
+    </p>
+  <% end %>
   <% if action_name != "show" %>
     <%= link_to "Show this project", project, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this project", edit_project_path(project), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
