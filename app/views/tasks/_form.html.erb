@@ -38,11 +38,19 @@
   <div class="my-5">
     <%= form.label :category_ids, "Categories" %><br>
     <% Category.order(:name).each do |category| %>
-      <label>
-        <%= check_box_tag 'task[category_ids][]', category.id, @task.categories.include?(category) %>
-        <%= category.name %>
-      </label><br>
+      <%= form.check_box :category_ids, { multiple: true }, category.id, nil %>
+      <%= category.name %><br>
     <% end %>
+  </div>
+  <%# priority %>
+  <div class="my-5">
+    <%= form.label :priority, "Priority" %><br>
+    <%= form.radio_button(:priority, "low") %>
+    <%= label_tag(:priority_low, "low") %>
+    <%= form.radio_button(:priority, "medium") %>
+    <%= label_tag(:priority_medium, "medium") %>
+    <%= form.radio_button(:priority, "high") %>
+    <%= label_tag(:priority_high, "high") %>
   </div>
   <%# submit %>
   <div class="inline">
@@ -51,3 +59,4 @@
 <% end %>
 <%# TODO %>
 <%# when unchecking all inboxes for category, it does not save when all checkbox are unchecked %>
+<%# check_box_tag 'task[category_ids][]', category.id, @task.categories.include?(category) %>
