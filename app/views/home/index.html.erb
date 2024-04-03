@@ -1,1 +1,20 @@
-<h1>Home</h1>
+<div>
+  <%# hero text %>
+  <div class="flex justify-between items-center bg-slate-50 p-9 rounded-t-2xl drop-shadow-xl">
+    <div class="flex flex-col gap-5">
+      <h1 class="text-3xl font-bold">Manage <span class="text-zinc-400">your</span></h1>
+      <h1 class="text-3xl font-bold">Keep Track <span class="text-zinc-400">of your</span></h1>
+      <h1 class="text-3xl font-bold">Organize <span class="text-zinc-400">your</span></h1>
+    </div>
+    <div>
+      <h1 class="text-5xl font-bold text-zinc-400">tasks</h1>
+    </div>
+  </div>
+  <%# button for getting started %>
+  <div class="absolute bottom-0 right-0 p-9">
+    <%= link_to new_user_session_path, class: "flex items-center gap-4 cursor-pointer" do %>
+      <h1 class="text-xl font-semibold text-white">Create task</h1>
+      <%= icon('fa-solid', 'circle-chevron-right', class: "text-xl text-white") %>
+    <% end %>
+  </div>
+</div>
