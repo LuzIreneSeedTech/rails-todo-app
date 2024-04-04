@@ -1,28 +1,26 @@
-<div>
-  <div class="w-1/2 h-full bg-slate-200 rounded-l-2xl p-9 flex flex-col items-center shadow-[rgba(0,0,0,0.15)_10px_0px_15px_0px] relative">
-    <h2 class="text-lg font-bold pb-2.5">Login</h2>
-    <p class="font-normal text-sm mb-6">Welcome back!</p>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="field mb-2.5">
-        <%= f.label :email, class: "text-sm font-medium mb-1" %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Enter your email", class: "border-solid border border-zinc-300 bg-transparent rounded-md text-sm w-64" %>
-      </div>
+<div class="w-1/2 h-full bg-slate-200 rounded-l-2xl p-9 flex flex-col items-center shadow-[rgba(0,0,0,0.15)_10px_0px_15px_0px] relative">
+  <h2 class="text-lg font-bold pb-2.5">Login</h2>
+  <p class="font-normal text-sm mb-6">Welcome back!</p>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field mb-2.5">
+      <%= f.label :email, class: "text-sm font-medium mb-1" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Enter your email", class: "border-solid border border-zinc-300 bg-transparent rounded-md text-sm w-64" %>
+    </div>
+    <div class="field">
+      <%= f.label :password, class: "text-sm font-medium mb-1" %><br />
+      <%= f.password_field :password, autocomplete: "current-password", placeholder: "Enter your password", class: "border-solid border border-zinc-300 bg-transparent rounded-md text-sm w-64" %>
+    </div>
+    <% if devise_mapping.rememberable? %>
       <div class="field">
-        <%= f.label :password, class: "text-sm font-medium mb-1" %><br />
-        <%= f.password_field :password, autocomplete: "current-password", placeholder: "Enter your password", class: "border-solid border border-zinc-300 bg-transparent rounded-md text-sm w-64" %>
-      </div>
-      <% if devise_mapping.rememberable? %>
-        <div class="field">
-          <%= f.check_box :remember_me, class: "border-none bg-zinc-50 rounded cursor-pointer" %>
-          <%= f.label :remember_me, class: "text-xs font-normal" %>
-        </div>
-      <% end %>
-      <div class="actions flex justify-center items-center mt-9 mb-4">
-        <%= f.submit "Login", class: "text-sm font-500 bg-black text-white rounded-full w-20 p-1 cursor-pointer" %>
+        <%= f.check_box :remember_me, class: "border-none bg-zinc-50 rounded cursor-pointer" %>
+        <%= f.label :remember_me, class: "text-xs font-normal" %>
       </div>
     <% end %>
-    <div>
-      <%= render "devise/shared/links" %>
+    <div class="actions flex justify-center items-center mt-9 mb-4">
+      <%= f.submit "Login", class: "text-sm font-500 bg-black text-white rounded-full py-1 px-4 cursor-pointer" %>
     </div>
+  <% end %>
+  <div>
+    <%= render "devise/shared/links" %>
   </div>
 </div>
