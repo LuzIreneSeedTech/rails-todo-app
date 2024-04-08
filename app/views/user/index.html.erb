@@ -1,1 +1,51 @@
-<h1>Welcome, <%= current_user.email %></h1>
+<div class="p-8 flex flex-col gap-3">
+  <%# top %>
+  <div class="flex items-center justify-between">
+    <%= link_to "Create new task", new_task_path, class: "bg-black text-white text-xl font-medium rounded-2xl cursor-pointer py-2 px-4" %>
+    <%# user profile %>
+    <div class="flex items-center gap-6">
+      <%# username %>
+      <div class="flex flex-col text-white">
+        <h1 class="text-xs">Hello, </h1>
+        <h1 class="text-lg font-semibold"><%= current_user.username %></h1>
+      </div>
+      <%# user image %>
+      <% @user_categories.each do |u| %>
+        <div class="drop-shadow-xl">
+          <%= u.image.present? ? image_tag(u.image.variant(:thumb), class: "rounded-full") : image_tag("https://placehold.co/50", class: "rounded-full") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%# middle/current date %>
+  <div class="flex justify-center text-white text-lg font-medium">
+    <%= Time.now.strftime("%-d %B, %A") %>
+  </div>
+  <%# bottom %>
+  <div class="flex gap-5">
+    <%# left %>
+    <div class="flex flex-col gap-3">
+      <%# top %>
+      <%# TODO: add a progress bar for the tasks of the day %>
+      <div class="bg-white w-96 h-48 rounded-2xl drop-shadow-xl opacity-75 p-4">
+        <h1 class="text-xl font-bold">Today's progress:</h1>
+      </div>
+      <%# bottom %>
+      <div class="flex gap-5">
+        <%# TODO: add the first 2 unfullfilled tasks of the day %>
+        <div class="bg-white w-64 h-20 rounded-2xl drop-shadow-xl opacity-75"></div>
+        <div>
+          <%= link_to "All tasks", tasks_path, class: "bg-black text-white text-sm font-medium rounded-2xl cursor-pointer py-2 px-4 flex justify-end absolute right-52 bottom-9" %>
+        </div>
+      </div>
+    </div>
+    <%# right %>
+    <div class="flex flex-col gap-4">
+      <h1 class="text-xs text-white">Progress by categories:</h1>
+      <%# TODO: make dynamic and add progress bar for the first two categories %>
+      <div class="bg-white w-36 h-28 rounded-2xl drop-shadow-xl opacity-75"></div>
+      <div class="bg-white w-36 h-28 rounded-2xl drop-shadow-xl opacity-75"></div>
+    </div>
+  </div>
+</div>
+<%# Welcome, <%= current_user.email %>
