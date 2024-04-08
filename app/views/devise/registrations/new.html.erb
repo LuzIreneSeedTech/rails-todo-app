@@ -1,6 +1,6 @@
 <div class="w-1/2 h-full bg-slate-200 m-auto flex flex-col items-center p-9">
   <h2 class="text-lg font-bold pb-2.5">Register</h2>
-  <p class="font-normal text-sm mb-6">Manage, Keep track, & Organize your tasks</p>
+  <p class="font-normal text-sm mb-6 text-center">Manage, Keep track, & Organize your tasks</p>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <div class="field mb-2.5">
@@ -18,7 +18,7 @@
       <%= f.label :password_confirmation, class: "text-sm font-medium mb-1" %><br />
       <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Enter your password again", class: "border-solid border border-zinc-300 bg-transparent rounded-md text-sm w-64" %>
     </div>
-    <div class="actions flex justify-center items-center mt-9 mb-4">
+    <div class="actions flex justify-center items-center mt-5 mb-3">
       <%= f.submit "Register", class: "text-sm font-500 bg-black text-white rounded-full py-1 px-4 cursor-pointer" %>
     </div>
   <% end %>
