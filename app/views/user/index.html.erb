@@ -1,7 +1,7 @@
 <div class="p-8 flex flex-col gap-3">
   <%# top %>
   <div class="flex items-center justify-between">
-    <%= link_to "Create new task", new_task_path, class: "bg-black text-white text-xl font-medium rounded-2xl cursor-pointer py-2 px-4" %>
+    <%= link_to "Create new task", new_user_task_path, class: "bg-black text-white text-xl font-medium rounded-2xl cursor-pointer py-2 px-4" %>
     <%# user profile %>
     <div class="flex items-center gap-6">
       <%# username %>
@@ -19,7 +19,7 @@
   </div>
   <%# middle/current date %>
   <div class="flex justify-center text-white text-lg font-medium">
-    <%= Time.now.strftime("%-d %B, %A") %>
+    <%= Time.now.strftime("%B %-d, %A") %>
   </div>
   <%# bottom %>
   <div class="flex gap-5">
@@ -35,7 +35,7 @@
         <%# TODO: add the first 2 unfullfilled tasks of the day %>
         <div class="bg-white w-64 h-20 rounded-2xl drop-shadow-xl opacity-75"></div>
         <div>
-          <%= link_to "All tasks", tasks_path, class: "bg-black text-white text-sm font-medium rounded-2xl cursor-pointer py-2 px-4 flex justify-end absolute right-52 bottom-9" %>
+          <%= link_to "All tasks", user_tasks_path, class: "bg-black text-white text-sm font-medium rounded-2xl cursor-pointer py-2 px-4 flex justify-end absolute right-52 bottom-9" %>
         </div>
       </div>
     </div>

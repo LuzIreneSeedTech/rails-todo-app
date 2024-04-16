@@ -1,4 +1,4 @@
-<%= form_with(model: task, class: "contents") do |form| %>
+<%= form_with(model: [:user, task]) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -9,6 +9,25 @@
       </ul>
     </div>
   <% end %>
+  <div class="flex justify-center">
+    <h1 class="">
+      <% if action_name == "new" %>
+        <h1 class="text-center text-lg font-semibold pb-3">
+          New Task
+        </h1>
+      <% elsif action_name == "edit" %>
+        <h1 class="text-center text-lg font-semibold pb-3">
+          Edit Task
+        </h1>
+      <% end %>
+    </h1>
+  </div>
+  <%# date %>
+  <div data-controller="task-date" class="flex justify-center gap-2.5">
+    <%= button_tag "Today", type: "button", id: "today-btn", data: { action: "click->task-date#setToday" }, class: "border-solid border border-white text-sm text-white py-px px-4 rounded-full" %>
+    <%= button_tag "Tomorrow", type: "button", id: "tomorrow-btn", data: { action: "click->task-date#setTomorrow" }, class: "border-solid border border-white text-sm text-white py-px px-4 rounded-full" %>
+    <%= form.date_field :taskDueDate, id: 'calendar-btn', class: "rounded-lg bg-transparent text-white" %>
+  </div>
   <%# title %>
   <div class="my-5">
     <%= form.label :title %>
@@ -18,11 +37,6 @@
   <div class="my-5">
     <%= form.label :description %>
     <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <%# date %>
-  <div class="my-5">
-    <%= form.label :taskDueDate, "Task Due Date" %>
-    <%= form.date_field :taskDueDate, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   <%# isCompleted %>
   <div class="my-5">

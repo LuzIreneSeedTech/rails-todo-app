@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :categories
   resources :projects
-  resources :tasks
+
+  namespace :user do
+    resources :tasks
+    post 'save_date' => 'tasks#saveDate'
+  end
   
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

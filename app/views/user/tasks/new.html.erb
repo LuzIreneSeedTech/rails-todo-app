@@ -1,0 +1,9 @@
+<%# back to home %>
+<div class="flex items-center gap-2 cursor-pointer pt-8 pl-8">
+  <%= link_to icon("fa-solid", "circle-chevron-left"), user_path, class: "text-xl text-white text-sm" %>
+  <%= link_to "back", user_path, class: "text-base font-medium text-white" %>
+</div>
+<%# form %>
+<div class="mx-auto w-full md:w-2/3">
+  <%= render "form", task: @task %>
+</div>
