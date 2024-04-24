@@ -11,6 +11,11 @@ module.exports = {
       fontFamily: {
         sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
       },
+      extend: {
+        backgroundImage: {
+            'hero-image': "url('app/assets/hero.png')"
+        }
+      }
   },
   plugins: [
     require('@tailwindcss/forms'),
