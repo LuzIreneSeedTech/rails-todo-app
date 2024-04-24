@@ -10,69 +10,93 @@
     </div>
   <% end %>
   <div class="flex justify-center">
-    <h1 class="">
-      <% if action_name == "new" %>
-        <h1 class="text-center text-lg font-semibold pb-3">
-          New Task
-        </h1>
-      <% elsif action_name == "edit" %>
-        <h1 class="text-center text-lg font-semibold pb-3">
-          Edit Task
-        </h1>
-      <% end %>
-    </h1>
+    <% if action_name == "new" %>
+      <h1 class="text-center text-lg font-semibold pb-3 drop-shadow-2xl">
+        New Task
+      </h1>
+    <% elsif action_name == "edit" %>
+      <h1 class="text-center text-lg font-semibold pb-3 drop-shadow-2xl">
+        Edit Task
+      </h1>
+    <% end %>
   </div>
   <%# date %>
-  <div data-controller="task-date" class="flex justify-center gap-2.5">
-    <%= button_tag "Today", type: "button", id: "today-btn", data: { action: "click->task-date#setToday" }, class: "border-solid border border-white text-sm text-white py-px px-4 rounded-full" %>
-    <%= button_tag "Tomorrow", type: "button", id: "tomorrow-btn", data: { action: "click->task-date#setTomorrow" }, class: "border-solid border border-white text-sm text-white py-px px-4 rounded-full" %>
-    <%= form.date_field :taskDueDate, id: 'calendar-btn', class: "rounded-lg bg-transparent text-white" %>
+  <div data-controller="task-date" class="flex justify-center gap-3">
+    <%= button_tag "Today", type: "button", id: "today-btn", data: { action: "click->task-date#setToday" }, class: "task-date-button border-solid border border-white text-sm text-white py-px px-4 rounded-full hover:border-black" %>
+    <%= button_tag "Tomorrow", type: "button", id: "tomorrow-btn", data: { action: "click->task-date#setTomorrow" }, class: "task-date-button border-solid border border-white text-sm text-white py-px px-4 rounded-full hover:border-black" %>
+    <div class="inline-block relative w-5 h-5">
+      <span class="absolute left-0 top-0 w-full h-full">
+        <%= icon("fa-solid", "calendar-days", class: "text-white text-lg") %>
+      </span>
+      <%= form.date_field :taskDueDate, id: 'calendar-btn', data: { action: "click->task-date#pickDate" }, class: "datepicker-input absolute left-0 top-0 w-full h-full opacity-0 cursor-pointer box-border" %>
+    </div>
   </div>
-  <%# title %>
-  <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <%# description %>
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <%# content %>
+  <div class="flex gap-11 items-start">
+    <%# left %>
+    <div>
+      <%# projects %>
+      <div>
+        <%= form.label :project_id, "Project", class: "my-5 font-normal text-sm text-white" %>
+        <div  class="flex items-center gap-3">
+          <% Project.first(2).each do |project| %>
+            <%= form.radio_button(:project_id, project.id, id: "project_#{project.id}", class: "hidden") %>
+            <label for="<%= "project_#{project.id}" %>" class="border-solid border border-white text-sm text-white p-4 rounded-2xl cursor-pointer hover:border-black">
+              <%= project.title %>
+            </label>
+          <% end %>
+          <%= icon("fa-solid", "circle-plus", class: "text-white text-xl cursor-pointer") %>
+        </div>
+      </div>
+      <%# categories %>
+      <div>
+        <%= form.label :category_ids, "Categories", class: "my-5 font-normal text-sm text-white"  %>
+        <div class="flex items-center gap-3">
+          <% Category.order(:name).first(2).each do |category| %>
+            <%= form.check_box :category_ids, { multiple: true, id: "category_#{category.id}", class: "hidden" }, category.id, nil %>
+            <label for="<%= "category_#{category.id}" %>" class="border-solid border border-white text-sm text-white p-4 rounded-2xl cursor-pointer hover:border-black">
+              <%= category.name %>
+            </label>
+          <% end %>
+          <%= icon("fa-solid", "circle-plus", class: "text-white text-xl cursor-pointer") %>
+        </div>
+      </div>
+    </div>
+    <%# right %>
+    <div>
+      <%# title %>
+      <div>
+        <%= form.label :title, class: "font-normal text-sm text-white" %>
+        <%= form.text_field :title, placeholder: "e.g. coding", class: "text-sm block shadow border border-gray-200 outline-none px-3 py-2 w-full rounded-2xl" %>
+      </div>
+      <%# description %>
+      <div>
+        <%= form.label :description, class: "font-normal text-sm text-white" %>
+        <%= form.text_area :description, rows: 2, placeholder: "e.g. start coding", class: "text-sm block shadow rounded-2xl border border-gray-200 outline-none px-3 py-2 w-full" %>
+      </div>
+      <%# priority %>
+      <%= form.label :priority, "Priority", class: "font-normal text-sm text-white" %><br>
+      <div class="flex items-center gap-2">
+        <%= form.radio_button(:priority, "low", id: "priority_low", class: "hidden") %>
+        <%= label_tag(:priority_low, "low", class: "border-solid border border-white text-sm text-white py-px px-4 rounded-2xl cursor-pointer hover:border-black") %>
+        <%= form.radio_button(:priority, "medium", id: "priority_medium", class: "hidden") %>
+        <%= label_tag(:priority_medium, "medium", class: "border-solid border border-white text-sm text-white py-px px-4 rounded-2xl cursor-pointer hover:border-black") %>
+        <%= form.radio_button(:priority, "high", id: "priority_high", class: "hidden") %>
+        <%= label_tag(:priority_high, "high", class: "border-solid border border-white text-sm text-white py-px px-4 rounded-2xl cursor-pointer hover:border-black") %>
+      </div>
+    </div>
   </div>
   <%# isCompleted %>
-  <div class="my-5">
+  <div class="my-5 hidden">
     <%= form.label :isCompleted, "Completed" %>
     <%= form.check_box :isCompleted, class: "block mt-2 h-5 w-5" %>
   </div>
-  <%# project selection %>
-  <div class="my-5">
-    <%= form.label :project_id, "Project" %>
-    <%= form.collection_select :project_id, Project.order(:title), :id, :title, id: "project", class: "block mt-2 h-5 w-5" %>
-  </div>
-  <%# category selection %>
-  <div class="my-5">
-    <%= form.label :category_ids, "Categories" %><br>
-    <% Category.order(:name).each do |category| %>
-      <%= form.check_box :category_ids, { multiple: true }, category.id, nil %>
-      <%= category.name %><br>
-    <% end %>
-  </div>
-  <%# priority %>
-  <div class="my-5">
-    <%= form.label :priority, "Priority" %><br>
-    <%= form.radio_button(:priority, "low") %>
-    <%= label_tag(:priority_low, "low") %>
-    <%= form.radio_button(:priority, "medium") %>
-    <%= label_tag(:priority_medium, "medium") %>
-    <%= form.radio_button(:priority, "high") %>
-    <%= label_tag(:priority_high, "high") %>
-  </div>
   <%# submit %>
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="flex justify-center">
+    <%= form.submit class: "rounded-full py-2 px-5 bg-black text-white text-sm font-semibold cursor-pointer" %>
   </div>
 <% end %>
 <%# TODO %>
 <%# when unchecking all inboxes for category, it does not save when all checkbox are unchecked %>
 <%# Redirect to login page when user is not logged in %>
 <%# NOTE: %>
-<%# check_box_tag 'task[category_ids][]', category.id, @task.categories.include?(category) %>
